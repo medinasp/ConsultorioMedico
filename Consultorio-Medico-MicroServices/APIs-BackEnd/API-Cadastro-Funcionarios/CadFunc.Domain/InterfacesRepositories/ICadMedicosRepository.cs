@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace CadFunc.Domain.Interfaces
 {
-    public interface ICadMedicoRepository
+    public interface ICadMedicosRepository
     {
 
-        Task<IEnumerable<CadMedico>> GetAllAsync();
+        Task<IEnumerable<CadMedicos>> GetAllAsync();
 
         Task<IEnumerable> GetByIdAsync(int id);
 
-        Task<IEnumerable<CadMedico>> GetByNomeAsync(string nome);
+        Task<IEnumerable<CadMedicos>> GetByNomeAsync(string nome);
 
-        Task<IEnumerable<CadMedico>> GetByCPFAsync(string cpf);
+        Task<IEnumerable<CadMedicos>> GetByCPFAsync(string cpf);
 
-        Task<IEnumerable<CadMedico>> GetByEspecialidadeAsync(string especialidade);
+        Task<IEnumerable<CadMedicos>> GetByEspecialidadeAsync(string especialidade);
 
-        Task AddAsync(CadMedico cadMedico);
+        Task AddAsync(CadMedicos cadMedico);
 
-        Task UpdateAsync(CadMedico cadMedico);
+        Task UpdateAsync(CadMedicos cadMedico);
 
         Task DeleteAsync(int id);
 

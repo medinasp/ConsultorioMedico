@@ -1,8 +1,8 @@
 ﻿namespace CadFunc.Domain.Entities
 {
-    public class CadMedico : EntityBase
+    public class CadMedicos : EntityBase
     {
-        public CadMedico(string nome, string cpf, string especialidade)
+        public CadMedicos(string nome, string cpf, string especialidade)
         {
             Nome = nome;
             CPF = cpf;
