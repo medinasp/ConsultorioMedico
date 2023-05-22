@@ -1,17 +1,14 @@
 ﻿using CadFunc.Application.InputModels;
 using CadFunc.Application.InterfacesServices;
+using CadFunc.Application.ViewModels;
 using CadFunc.Domain.Entities;
+using System.Text.Json;
 
 namespace CadFunc.Application.Services
 {
     public class CadMedicosService : ICadMedicosService
     {
-        private readonly List<CadMedicos> _cadMedicosList;
-
-        public CadMedicosService()
-        {
-            _cadMedicosList = new List<CadMedicos>();
-        }
+        private static readonly List<CadMedicos> _cadMedicosList = new List<CadMedicos>();
 
         public async Task<string> Add(CadMedicosInputModels model)
         {
@@ -21,9 +18,27 @@ namespace CadFunc.Application.Services
             return await Task.FromResult(cadMedicos.Id.ToString());
         }
 
-        public async Task<CadMedicos> GetByCode(string trackingCode)
+        public async Task<CadMedicosViewModel> GetByCode(string trackingCode)
         {
-            return await Task.FromResult(_cadMedicosList.Find(m => m.Nome.ToString() == trackingCode));
+            if (!Guid.TryParse(trackingCode, out var guid))
+                return null;
+
+            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id == guid);
+            if (cadMedicos == null)
+                return null;
+
+            var cadMedicosViewModel = new CadMedicosViewModel
+            {
+                Id = cadMedicos.Id,
+                Nome = cadMedicos.Nome,
+                CPF = cadMedicos.CPF,
+                Especialidade = cadMedicos.Especialidade,
+                DataCriacao = cadMedicos.DataCriacao,
+                Ativo = cadMedicos.Ativo
+            };
+
+            return await Task.FromResult(cadMedicosViewModel);
         }
+
     }
 }

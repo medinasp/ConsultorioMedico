@@ -1,4 +1,5 @@
 ﻿using CadFunc.Application.InputModels;
+using CadFunc.Application.ViewModels;
 using CadFunc.Domain.Entities;
 
 namespace CadFunc.Application.InterfacesServices
@@ -6,7 +7,7 @@ namespace CadFunc.Application.InterfacesServices
     public interface ICadMedicosService
     {
         Task<string> Add(CadMedicosInputModels model);
-        Task<CadMedicos> GetByCode(string trackingCode);
+        Task<CadMedicosViewModel> GetByCode(string trackingCode);
         //Task<IEnumerable<CadMedicos>> GetAllAsync();
     }
 }

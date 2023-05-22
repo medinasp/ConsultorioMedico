@@ -29,9 +29,9 @@ namespace CadFunc.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetById")]
-        public async Task<IActionResult> GetById(string code)
+        public async Task<IActionResult> GetById(string id)
         {
-            var cadMedicosViewModel = await _cadMedicosServices.GetByCode(code);
+            var cadMedicosViewModel = await _cadMedicosServices.GetByCode(id);
 
             if (cadMedicosViewModel == null)
                 return NotFound();
