@@ -3,7 +3,7 @@ using CadFunc.Domain.Entities;
 
 namespace CadFunc.Application.InterfacesServices
 {
-    public interface ICadMedicosServices
+    public interface ICadMedicosService
     {
         Task<string> Add(CadMedicosInputModels model);
         Task<CadMedicos> GetByCode(string trackingCode);

@@ -1,4 +1,5 @@
-﻿using CadFunc.Application.InterfacesServices;
+﻿using CadFunc.Application.InputModels;
+using CadFunc.Application.InterfacesServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,9 @@ namespace CadFunc.API.Controllers
     [Route("api/[controller]")]
     public class CadMedicosController : ControllerBase
     {
-        private readonly ICadMedicosServices _cadMedicosServices;
+        private readonly ICadMedicosService _cadMedicosServices;
 
-        public CadMedicosController(ICadMedicosServices cadMedicosServices)
+        public CadMedicosController(ICadMedicosService cadMedicosServices)
         {
             _cadMedicosServices = cadMedicosServices;
         }
@@ -28,9 +29,9 @@ namespace CadFunc.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetById")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(string code)
         {
-            var cadMedicosViewModel = await _cadMedicosServices.GetByCode(id);
+            var cadMedicosViewModel = await _cadMedicosServices.GetByCode(code);
 
             if (cadMedicosViewModel == null)
                 return NotFound();

@@ -4,11 +4,11 @@ using CadFunc.Domain.Entities;
 
 namespace CadFunc.Application.Services
 {
-    public class CadMedicosServices : ICadMedicosServices
+    public class CadMedicosService : ICadMedicosService
     {
         private readonly List<CadMedicos> _cadMedicosList;
 
-        public CadMedicosServices()
+        public CadMedicosService()
         {
             _cadMedicosList = new List<CadMedicos>();
         }
@@ -17,12 +17,13 @@ namespace CadFunc.Application.Services
         {
             var cadMedicos = model.ToEntity();
             _cadMedicosList.Add(cadMedicos);
+            Console.WriteLine(JsonSerializer.Serialize(cadMedicos));
             return await Task.FromResult(cadMedicos.Id.ToString());
         }
 
         public async Task<CadMedicos> GetByCode(string trackingCode)
         {
-            return await Task.FromResult(_cadMedicosList.Find(m => m.Id.ToString() == trackingCode));
+            return await Task.FromResult(_cadMedicosList.Find(m => m.Nome.ToString() == trackingCode));
         }
     }
 }
