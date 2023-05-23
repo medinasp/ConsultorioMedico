@@ -8,14 +8,21 @@ namespace CadFunc.Application.Services
 {
     public class CadMedicosService : ICadMedicosService
     {
-        private static readonly List<CadMedicos> _cadMedicosList = new List<CadMedicos>();
+        private static readonly List<Domain.Entities.CadMedicos> _cadMedicosList = new List<Domain.Entities.CadMedicos>();
 
-        public async Task<string> Add(CadMedicosInputModels model)
+        public async Task<CadMedicosViewModel> Add(CadMedicosInputModels model)
         {
             var cadMedicos = model.ToEntity();
             _cadMedicosList.Add(cadMedicos);
-            Console.WriteLine(JsonSerializer.Serialize(cadMedicos));
-            return await Task.FromResult(cadMedicos.Id.ToString());
+
+            var viewModel = new CadMedicosViewModel
+            {
+                Id = cadMedicos.Id,
+                Nome = cadMedicos.Nome,
+                CPF = cadMedicos.CPF,
+                Especialidade = cadMedicos.Especialidade
+            };
+            return await Task.FromResult(viewModel);
         }
 
         public async Task<CadMedicosViewModel> GetByCode(string trackingCode)
@@ -33,12 +40,9 @@ namespace CadFunc.Application.Services
                 Nome = cadMedicos.Nome,
                 CPF = cadMedicos.CPF,
                 Especialidade = cadMedicos.Especialidade,
-                DataCriacao = cadMedicos.DataCriacao,
-                Ativo = cadMedicos.Ativo
             };
 
             return await Task.FromResult(cadMedicosViewModel);
         }
-
     }
 }

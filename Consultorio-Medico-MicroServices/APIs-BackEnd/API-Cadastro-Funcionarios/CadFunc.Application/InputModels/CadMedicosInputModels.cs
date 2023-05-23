@@ -13,7 +13,7 @@ namespace CadFunc.Application.InputModels
         public string CPF { get; set; }
         public string Especialidade { get; set; }
 
-        public CadMedicos ToEntity()
-            => new CadMedicos(Nome, CPF, Especialidade);
+        public Domain.Entities.CadMedicos ToEntity()
+            => new Domain.Entities.CadMedicos(Nome, CPF, Especialidade);
     }
 }

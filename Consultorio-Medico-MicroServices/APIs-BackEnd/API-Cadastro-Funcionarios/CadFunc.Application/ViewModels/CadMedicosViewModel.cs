@@ -6,8 +6,6 @@
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string Especialidade { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public bool Ativo { get; set; }
     }
 }
 

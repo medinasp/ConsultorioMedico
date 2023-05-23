@@ -2,20 +2,12 @@
 {
     public class CadMedicos : EntityBase
     {
-        public CadMedicos(string nome, string cpf, string especialidade)
+        public CadMedicos(string nome, string cpf, string especialidade) : base(nome, cpf)
         {
-            Nome = nome;
-            CPF = cpf;
             Especialidade = especialidade;
-            DataCriacao = DateTime.Now;
-            Ativo = true;
         }
 
-        public string Nome { get; private set; }
-        public string CPF { get; private set; }
         public string Especialidade { get; private set; }
-        public DateTime DataCriacao { get; private set; }
-        public bool Ativo { get; private set; }
 
         public void Excluir()
         {
