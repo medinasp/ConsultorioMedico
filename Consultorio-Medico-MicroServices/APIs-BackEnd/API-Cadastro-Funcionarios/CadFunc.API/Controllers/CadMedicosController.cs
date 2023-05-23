@@ -1,5 +1,6 @@
 ﻿using CadFunc.Application.InputModels;
 using CadFunc.Application.InterfacesServices;
+using CadFunc.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,14 @@ namespace CadFunc.API.Controllers
                 return NotFound();
 
             return Ok(cadMedicosViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var cadMedicosViewModels = await _cadMedicosServices.GetAll();
+
+            return Ok(cadMedicosViewModels);
         }
     }
 }
