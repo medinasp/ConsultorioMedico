@@ -13,5 +13,12 @@
         {
             Ativo = false;
         }
+
+        public void Update(string nome, string cpf, string especialidade)
+        {
+            Nome = nome;
+            CPF = cpf;
+            Especialidade = especialidade;
+        }
     }
 }

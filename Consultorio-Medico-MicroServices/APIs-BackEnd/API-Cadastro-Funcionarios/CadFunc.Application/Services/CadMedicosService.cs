@@ -57,5 +57,18 @@ namespace CadFunc.Application.Services
 
             return await Task.FromResult(viewModels);
         }
+
+        public async Task<bool> Update(string id, CadMedicosInputModels model)
+        {
+            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id.ToString() == id);
+
+            if (cadMedicos == null)
+                return false;
+
+            cadMedicos.Update(model.Nome, model.CPF, model.Especialidade);
+
+            return true;
+        }
+
     }
 }

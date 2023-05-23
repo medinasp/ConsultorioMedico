@@ -12,8 +12,8 @@
         }
 
         public Guid Id { get; private set; }
-        public string Nome { get; private set; }
-        public string CPF { get; private set; }
+        public string Nome { get; protected set; }
+        public string CPF { get; protected set; }
         public DateTime DataCriacao { get; private set; }
         public bool Ativo { get; protected set; }
     }

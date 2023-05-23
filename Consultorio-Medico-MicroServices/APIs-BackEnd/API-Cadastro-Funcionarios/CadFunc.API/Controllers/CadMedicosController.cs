@@ -47,5 +47,16 @@ namespace CadFunc.API.Controllers
 
             return Ok(cadMedicosViewModels);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id, CadMedicosInputModels model)
+        {
+            var updated = await _cadMedicosServices.Update(id, model);
+
+            if (updated)
+                return Ok();
+
+            return NotFound();
+        }
     }
 }
