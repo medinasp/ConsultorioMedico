@@ -8,6 +8,6 @@ namespace CadFunc.Application.InterfacesServices
     {
         Task<CadMedicosViewModel> Add(CadMedicosInputModels model);
         Task<CadMedicosViewModel> GetByCode(string trackingCode);
-        //Task<IEnumerable<CadMedicos>> GetAllAsync();
+        Task<IEnumerable<CadMedicosViewModel>> GetAll();
     }
 }
