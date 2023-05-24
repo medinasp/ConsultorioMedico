@@ -75,5 +75,15 @@ namespace CadFunc.API.Controllers
             var activeCadMedicos = await _cadMedicosServices.GetActives();
             return Ok(activeCadMedicos);
         }
+
+        [HttpDelete("hard/{id}")]
+        public async Task<IActionResult> HardDelete(string id)
+        {
+            var result = await _cadMedicosServices.HardDelete(id);
+            if (result)
+                return NoContent();
+
+            return NotFound();
+        }
     }
 }

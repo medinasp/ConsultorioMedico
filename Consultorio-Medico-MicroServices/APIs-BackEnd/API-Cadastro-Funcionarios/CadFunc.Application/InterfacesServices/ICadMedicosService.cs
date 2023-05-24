@@ -12,5 +12,6 @@ namespace CadFunc.Application.InterfacesServices
         Task<bool> Update(string id, CadMedicosInputModels model);
         Task<bool> SoftDelete(string id);
         Task<IEnumerable<CadMedicosViewModel>> GetActives();
+        Task<bool> HardDelete(string id);
     }
 }

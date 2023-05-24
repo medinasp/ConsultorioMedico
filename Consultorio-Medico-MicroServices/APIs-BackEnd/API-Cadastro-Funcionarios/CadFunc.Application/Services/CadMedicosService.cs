@@ -98,5 +98,17 @@ namespace CadFunc.Application.Services
             return await Task.FromResult(viewModels);
         }
 
+        public async Task<bool> HardDelete(string id)
+        {
+            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id.ToString() == id);
+
+            if (cadMedicos == null)
+                return false;
+
+            _cadMedicosList.Remove(cadMedicos);
+
+            return true;
+        }
+
     }
 }
