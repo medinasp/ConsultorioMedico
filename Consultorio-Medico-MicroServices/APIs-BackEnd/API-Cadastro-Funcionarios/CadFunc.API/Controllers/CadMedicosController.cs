@@ -58,5 +58,22 @@ namespace CadFunc.API.Controllers
 
             return NotFound();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> SoftDelete(string id)
+        {
+            var success = await _cadMedicosServices.SoftDelete(id);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpGet("actives")]
+        public async Task<IActionResult> GetActives()
+        {
+            var activeCadMedicos = await _cadMedicosServices.GetActives();
+            return Ok(activeCadMedicos);
+        }
     }
 }

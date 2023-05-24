@@ -70,5 +70,33 @@ namespace CadFunc.Application.Services
             return true;
         }
 
+        public async Task<bool> SoftDelete(string id)
+        {
+            if (!Guid.TryParse(id, out var guid))
+                return false;
+
+            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id == guid && m.Ativo);
+            if (cadMedicos == null)
+                return false;
+
+            cadMedicos.Excluir();
+
+            return true;
+        }
+
+        public async Task<IEnumerable<CadMedicosViewModel>> GetActives()
+        {
+            var activeCadMedicos = _cadMedicosList.Where(m => m.Ativo);
+            var viewModels = activeCadMedicos.Select(m => new CadMedicosViewModel
+            {
+                Id = m.Id,
+                Nome = m.Nome,
+                CPF = m.CPF,
+                Especialidade = m.Especialidade
+            });
+
+            return await Task.FromResult(viewModels);
+        }
+
     }
 }

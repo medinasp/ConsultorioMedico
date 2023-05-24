@@ -10,5 +10,7 @@ namespace CadFunc.Application.InterfacesServices
         Task<CadMedicosViewModel> GetByCode(string trackingCode);
         Task<IEnumerable<CadMedicosViewModel>> GetAll();
         Task<bool> Update(string id, CadMedicosInputModels model);
+        Task<bool> SoftDelete(string id);
+        Task<IEnumerable<CadMedicosViewModel>> GetActives();
     }
 }
