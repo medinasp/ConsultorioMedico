@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using CadFunc.Application;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,20 @@ builder
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "CadFuncAPI",
+        Version = "v1",
+        Contact = new OpenApiContact
+        {
+            Name = "Eneias Medina",
+            Email = "medinasp@gmail.com",
+            Portfolio = new Uri("https://github.com/medinasp")
+        }
+    })
+});
 
 var app = builder.Build();
 
