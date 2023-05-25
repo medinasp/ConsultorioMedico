@@ -17,7 +17,19 @@ namespace CadFunc.API.Controllers
             _cadMedicosServices = cadMedicosServices;
         }
 
+        /// <summary>
+        /// Cadastrar um novo médico
+        /// </summary>
+        /// <remarks>
+        /// {"nome": "string", "cpf": "string", "especialidade": "string"}
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns>Objeto criado</returns>
+        /// <response code="201">Sucesso</response>
+        /// <response code="400">Requisição Inválida</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(CadMedicosInputModels model)
         {
             if (ModelState.IsValid)
@@ -29,7 +41,16 @@ namespace CadFunc.API.Controllers
             return BadRequest(ModelState);
         }
 
+        /// <summary>
+        /// Obter um cadastro específico pelo id
+        /// </summary>
+        /// <param name="id">Identificador do cadastro de um médico específico</param>
+        /// <returns>Dados do cadastro específico do médico</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpGet("{id}", Name = "GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(string id)
         {
             var cadMedicosViewModel = await _cadMedicosServices.GetByCode(id);
@@ -40,7 +61,13 @@ namespace CadFunc.API.Controllers
             return Ok(cadMedicosViewModel);
         }
 
+        /// <summary>
+        /// Obter todos cadastros de médicos em memória
+        /// </summary>
+        /// <returns>Médicos Cadastrados</returns>
+        /// <response code="200">Sucesso</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
             var cadMedicosViewModels = await _cadMedicosServices.GetAll();
@@ -48,7 +75,20 @@ namespace CadFunc.API.Controllers
             return Ok(cadMedicosViewModels);
         }
 
+        /// <summary>
+        /// Atualizar cadastro de um médico específico
+        /// </summary>
+        /// <remarks>
+        /// {"nome": "string", "cpf": "string", "especialidade": "string"}
+        /// </remarks>
+        /// <param name="id">Identificador do cadastro de um médico específico</param>
+        /// <param name="model">Dados do cadastro específico do médico</param>
+        /// <returns>Ok</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(string id, CadMedicosInputModels model)
         {
             var updated = await _cadMedicosServices.Update(id, model);
@@ -59,7 +99,16 @@ namespace CadFunc.API.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Soft Delete - Desativa registro
+        /// </summary>
+        /// <param name="id">Identificador do cadastro de um médico específico</param>
+        /// <returns>Nada</returns>
+        /// <response code="404">Não encontrado</response>
+        /// <response code="204">Sucesso</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> SoftDelete(string id)
         {
             var success = await _cadMedicosServices.SoftDelete(id);
@@ -69,14 +118,29 @@ namespace CadFunc.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Obter somente cadastros de médicos com status "ativo"
+        /// </summary>
+        /// <returns>Médicos Cadastrados</returns>
+        /// <response code="200">Sucesso</response>
         [HttpGet("actives")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetActives()
         {
             var activeCadMedicos = await _cadMedicosServices.GetActives();
             return Ok(activeCadMedicos);
         }
 
+        /// <summary>
+        /// Hard Delete - Remove um cadastro do banco em memória
+        /// </summary>
+        /// <param name="id">Identificador do cadastro de um médico específico</param>
+        /// <returns>Nada</returns>
+        /// <response code="204">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpDelete("hard/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> HardDelete(string id)
         {
             var result = await _cadMedicosServices.HardDelete(id);

@@ -20,17 +20,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo 
-    { 
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
         Title = "CadFuncAPI",
         Version = "v1",
         Contact = new OpenApiContact
         {
             Name = "Eneias Medina",
             Email = "medinasp@gmail.com",
-            Portfolio = new Uri("https://github.com/medinasp")
+            Url = new Uri("https://github.com/medinasp")
+
         }
-    })
+    });
+
+    var xmlFile = "CadFunc.API.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();
