@@ -25,13 +25,13 @@ Esta é uma API que se integra a uma estrutura de micro serviços para um consul
 
 ## Requisitos funcionais
 <p align="justify">
-Dados persistidos em memória, mas facilmente substituível para banco de dados, através de repository pattern.
+Dados persistidos em memória.
 </p>
 <br>
 
 ## Requisitos não funcionais
 <p align="justify">
-API deverá ser desenvolvida em clean architecture onde abrigará em sua modelagem os patterns: Repository, IoC, Identity.
+API desenvolvida em clean architecture onde abrigará em sua modelagem os patterns: IoC e Identity.
 
 Desenvolvida com orientação a objeto, existindo por completo, o encapsulamento de dados e utilizando .Net 7.
 
