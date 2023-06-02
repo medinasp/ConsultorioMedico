@@ -2,13 +2,12 @@
 using CadFunc.Application.InterfacesServices;
 using CadFunc.Application.ViewModels;
 using CadFunc.Domain.Entities;
-using System.Text.Json;
 
 namespace CadFunc.Application.Services
 {
     public class CadMedicosService : ICadMedicosService
     {
-        private static readonly List<Domain.Entities.CadMedicos> _cadMedicosList = new List<Domain.Entities.CadMedicos>();
+        private static readonly List<CadMedicos> _cadMedicosList = new List<CadMedicos>();
 
         public async Task<CadMedicosViewModel> Add(CadMedicosInputModels model)
         {
@@ -25,9 +24,9 @@ namespace CadFunc.Application.Services
             return await Task.FromResult(viewModel);
         }
 
-        public async Task<CadMedicosViewModel> GetByCode(string trackingCode)
+        public async Task<CadMedicosViewModel> GetByCode(string code)
         {
-            if (!Guid.TryParse(trackingCode, out var guid))
+            if (!Guid.TryParse(code, out var guid))
                 return null;
 
             var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id == guid);
