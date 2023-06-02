@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CadCli.Domain\CadCli.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
