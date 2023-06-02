@@ -2,7 +2,7 @@
 
 namespace CadFunc.Application.InputModels
 {
-    public class CadMedicosInputModels
+    public class CadMedicosInputModel
     {
         public string Nome { get; set; }
         public string CPF { get; set; }

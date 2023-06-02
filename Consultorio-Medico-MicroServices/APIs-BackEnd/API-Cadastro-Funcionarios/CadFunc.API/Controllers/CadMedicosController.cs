@@ -1,7 +1,5 @@
 ﻿using CadFunc.Application.InputModels;
 using CadFunc.Application.InterfacesServices;
-using CadFunc.Application.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadFunc.API.Controllers
@@ -30,7 +28,7 @@ namespace CadFunc.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create(CadMedicosInputModels model)
+        public async Task<IActionResult> Create(CadMedicosInputModel model)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +87,7 @@ namespace CadFunc.API.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(string id, CadMedicosInputModels model)
+        public async Task<IActionResult> Update(string id, CadMedicosInputModel model)
         {
             var updated = await _cadMedicosServices.Update(id, model);
 
@@ -105,17 +103,17 @@ namespace CadFunc.API.Controllers
         /// <param name="id">Identificador do cadastro de um médico específico</param>
         /// <returns>Nada</returns>
         /// <response code="404">Não encontrado</response>
-        /// <response code="204">Sucesso</response>
-        [HttpDelete("{id}")]
+        /// <response code="200">Sucesso</response>
+        [HttpDelete("soft/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> SoftDelete(string id)
         {
             var success = await _cadMedicosServices.SoftDelete(id);
             if (!success)
                 return NotFound();
 
-            return NoContent();
+            return Ok("SoftDelete Ok");
         }
 
         /// <summary>
@@ -136,16 +134,16 @@ namespace CadFunc.API.Controllers
         /// </summary>
         /// <param name="id">Identificador do cadastro de um médico específico</param>
         /// <returns>Nada</returns>
-        /// <response code="204">Sucesso</response>
+        /// <response code="200">Sucesso</response>
         /// <response code="404">Não encontrado</response>
         [HttpDelete("hard/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> HardDelete(string id)
         {
             var result = await _cadMedicosServices.HardDelete(id);
             if (result)
-                return NoContent();
+                return Ok("HardRemove Ok");
 
             return NotFound();
         }

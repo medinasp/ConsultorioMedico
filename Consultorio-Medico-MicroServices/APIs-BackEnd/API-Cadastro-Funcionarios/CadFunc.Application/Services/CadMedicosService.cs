@@ -9,7 +9,7 @@ namespace CadFunc.Application.Services
     {
         private static readonly List<CadMedicos> _cadMedicosList = new List<CadMedicos>();
 
-        public async Task<CadMedicosViewModel> Add(CadMedicosInputModels model)
+        public async Task<CadMedicosViewModel> Add(CadMedicosInputModel model)
         {
             var cadMedicos = model.ToEntity();
             _cadMedicosList.Add(cadMedicos);
@@ -57,7 +57,7 @@ namespace CadFunc.Application.Services
             return await Task.FromResult(viewModels);
         }
 
-        public async Task<bool> Update(string id, CadMedicosInputModels model)
+        public async Task<bool> Update(string id, CadMedicosInputModel model)
         {
             var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id.ToString() == id);
 

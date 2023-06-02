@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Authentication;
+using CadFunc.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
-using CadFunc.Application;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);

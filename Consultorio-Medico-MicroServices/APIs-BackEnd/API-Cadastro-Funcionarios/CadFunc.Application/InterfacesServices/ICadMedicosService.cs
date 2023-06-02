@@ -6,10 +6,10 @@ namespace CadFunc.Application.InterfacesServices
 {
     public interface ICadMedicosService
     {
-        Task<CadMedicosViewModel> Add(CadMedicosInputModels model);
+        Task<CadMedicosViewModel> Add(CadMedicosInputModel model);
         Task<CadMedicosViewModel> GetByCode(string code);
         Task<IEnumerable<CadMedicosViewModel>> GetAll();
-        Task<bool> Update(string id, CadMedicosInputModels model);
+        Task<bool> Update(string id, CadMedicosInputModel model);
         Task<bool> SoftDelete(string id);
         Task<IEnumerable<CadMedicosViewModel>> GetActives();
         Task<bool> HardDelete(string id);
