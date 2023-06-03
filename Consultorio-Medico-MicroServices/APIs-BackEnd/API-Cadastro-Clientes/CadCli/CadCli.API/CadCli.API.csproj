@@ -4,6 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <NoWarn>$(NoWarn);1591</NoWarn>	  
     <UserSecretsId>aspnet-CadCli.API-33880e96-58dc-44a9-a9da-9bd81825a290</UserSecretsId>
   </PropertyGroup>
 
@@ -16,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CadCli.Domain\CadCli.Domain.csproj" />
     <ProjectReference Include="..\CadCli\CadCli.Application.csproj" />
   </ItemGroup>
 
