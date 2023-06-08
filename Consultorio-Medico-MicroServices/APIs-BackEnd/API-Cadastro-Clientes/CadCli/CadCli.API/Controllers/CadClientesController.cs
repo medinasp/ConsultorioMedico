@@ -114,11 +114,11 @@ namespace CadCli.API.Controllers
         /// </summary>
         /// <param name="id">Identificador do cadastro de um cliente específico</param>
         /// <returns>Nada</returns>
-        /// <response code="404">Não encontrado</response>
         /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpDelete("soft/{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> SoftDelete(string id)
         {
             var success = await _cadClientesServices.SoftDelete(id);
@@ -137,8 +137,8 @@ namespace CadCli.API.Controllers
         /// <response code="200">Sucesso</response>
         /// <response code="404">Não encontrado</response> 
         [HttpDelete("hard/{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> HardDelete(string id)
         {
             var result = await _cadClientesServices.HardDelete(id);
