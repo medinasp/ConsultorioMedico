@@ -2,12 +2,12 @@
 {
     public class CadMedicos : EntityBase
     {
+        public string Especialidade { get; private set; }
+
         public CadMedicos(string nome, string cpf, string especialidade) : base(nome, cpf)
         {
             Especialidade = especialidade;
         }
-
-        public string Especialidade { get; private set; }
 
         public void Excluir()
         {
