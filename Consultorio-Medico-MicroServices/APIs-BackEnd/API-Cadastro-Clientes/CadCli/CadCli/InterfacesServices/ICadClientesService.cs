@@ -1,10 +1,5 @@
-﻿using CadCli.Application.ViewModels;
-using CadCli.Application.InputModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CadCli.Application.InputModels;
+using CadCli.Application.ViewModels;
 
 namespace CadCli.Application.InterfacesServices
 {
