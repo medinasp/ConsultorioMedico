@@ -1,5 +1,5 @@
 ﻿using CadCli.Application.InputModels;
-using CadCli.Application.InterfacesServices;
+using CadCli.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadCli.API.Controllers
@@ -60,7 +60,7 @@ namespace CadCli.API.Controllers
         }
 
         /// <summary>
-        /// Obter todos cadastros de clientes em memória
+        /// Obter todos cadastros de clientes
         /// </summary>
         /// <returns>Clientes Cadastrados</returns>
         /// <response code="200">Sucesso</response>
@@ -130,7 +130,7 @@ namespace CadCli.API.Controllers
         }
 
         /// <summary>
-        /// Hard Delete - Remove um cadastro do banco em memória
+        /// Hard Delete - Remove um cadastro do banco
         /// </summary>
         /// <param name="id">Identificador do cadastro de um cliente específico</param>
         /// <returns>Nada</returns>
