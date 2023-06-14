@@ -1,6 +1,6 @@
-﻿using CadCli.Application.InterfacesServices;
-using CadCli.Application.Services;
+﻿using CadCli.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
+using CadCli.Infra;
 
 namespace CadCli.Application
 {
@@ -17,6 +17,7 @@ namespace CadCli.Application
         private static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ICadClientesService, CadClientesService>();
+            services.AddInfrastructure();
 
             return services;
         }

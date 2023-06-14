@@ -11,7 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CadCli.Domain\CadCli.Domain.csproj" />
+    <ProjectReference Include="..\CadCli.Infra\CadCli.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="InterfacesServices\" />
   </ItemGroup>
 
 </Project>

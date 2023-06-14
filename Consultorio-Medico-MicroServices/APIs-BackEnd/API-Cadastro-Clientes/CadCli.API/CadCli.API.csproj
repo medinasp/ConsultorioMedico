@@ -22,12 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CadCli.Application\CadCli.Application.csproj" />
-    <ProjectReference Include="..\CadCli.Infra\CadCli.Infra.csproj" />
+    <Folder Include="Db\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\CadCli.Application\CadCli.Application.csproj" />
   </ItemGroup>
 
 </Project>
