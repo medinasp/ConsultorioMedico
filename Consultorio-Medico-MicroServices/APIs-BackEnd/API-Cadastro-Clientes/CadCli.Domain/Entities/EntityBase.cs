@@ -2,12 +2,6 @@
 {
     public abstract class EntityBase
     {
-        public Guid Id { get; private set; }
-        public string Nome { get; protected set; }
-        public string CPF { get; protected set; }
-        public DateTime DataCriacao { get; private set; }
-        public bool Ativo { get; protected set; }
-
         public EntityBase(string nome, string cpf)
         {
             Id = Guid.NewGuid();
@@ -16,6 +10,10 @@
             DataCriacao = DateTime.Now;
             Ativo = true;
         }
-
+        public Guid Id { get; private set; }
+        public string Nome { get; protected set; }
+        public string CPF { get; protected set; }
+        public DateTime DataCriacao { get; private set; }
+        public bool Ativo { get; protected set; }
     }
 }

@@ -8,7 +8,7 @@ namespace CadCli.Domain.Entities
 {
     public class CadCliente : EntityBase
     {
-        //o método abaixo é exigido para poder rodar as migrations com sucesso
+        //o método abaixo é exigido somente para poder rodar as migrations com sucesso
         private CadCliente() : base("", "")
         {
         }
