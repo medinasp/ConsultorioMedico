@@ -20,16 +20,6 @@ namespace CadCli.Infra.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CadCliente>> GetActives()
-        {
-            return await _context.CadClientes.Where(c => c.Ativo).ToListAsync();
-        }
-
-        public async Task<IEnumerable<CadCliente>> GetAll()
-        {
-            return await _context.CadClientes.ToListAsync();
-        }
-
         public async Task<CadCliente> GetByCode(string code)
         {
             if (!Guid.TryParse(code, out var guid))
@@ -40,15 +30,9 @@ namespace CadCli.Infra.Repositories
             return cadCliente;
         }
 
-        public async Task HardDelete(CadCliente cadCliente)
+        public async Task<IEnumerable<CadCliente>> GetAll()
         {
-            _context.CadClientes.Remove(cadCliente);
-            await _context.SaveChangesAsync();
-        }
-
-        public Task<bool> SoftDelete(string id)
-        {
-            throw new NotImplementedException();
+            return await _context.CadClientes.ToListAsync();
         }
 
         public async Task Update(CadCliente cadCliente)
@@ -56,6 +40,32 @@ namespace CadCli.Infra.Repositories
             _context.CadClientes.Update(cadCliente);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<CadCliente>> GetActives()
+        {
+            return await _context.CadClientes.Where(c => c.Ativo).ToListAsync();
+        }
+
+        public async Task<bool> SoftDelete(CadCliente cadCliente)
+        {
+            if (cadCliente == null)
+                throw new ArgumentNullException(nameof(cadCliente));
+
+            cadCliente.Excluir();
+
+            _context.CadClientes.Update(cadCliente);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task HardDelete(CadCliente cadCliente)
+        {
+            _context.CadClientes.Remove(cadCliente);
+            await _context.SaveChangesAsync();
+        }
+
+
     }
 }
 

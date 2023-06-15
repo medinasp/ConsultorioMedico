@@ -8,8 +8,8 @@ namespace CadCli.Infra.Repositories
         Task<CadCliente> GetByCode(string code);
         Task<IEnumerable<CadCliente>> GetAll();
         Task Update(CadCliente cadCliente);
-        Task<bool> SoftDelete(string id);
         Task<IEnumerable<CadCliente>> GetActives();
+        Task<bool> SoftDelete(CadCliente cadCliente);
         Task HardDelete(CadCliente cadCliente);
     }
 }
