@@ -9,8 +9,8 @@ namespace CadCli.Application.Services
         Task<CadClientesViewModel> GetByCode(string code);
         Task<IEnumerable<CadClientesViewModel>> GetAll();
         Task<bool> Update(string id, CadClientesInputModel model);
-        Task<bool> SoftDelete(string id);
         Task<IEnumerable<CadClientesViewModel>> GetActives();
+        Task<bool> SoftDelete(string id);
         Task<bool> HardDelete(string id);
     }
 }

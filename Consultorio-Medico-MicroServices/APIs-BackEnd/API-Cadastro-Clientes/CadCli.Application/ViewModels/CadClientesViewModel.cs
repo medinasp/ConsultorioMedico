@@ -13,5 +13,7 @@ namespace CadCli.Application.ViewModels
         public string Nome { get; set; }
 
         public string CPF { get; set; }
+
+        public bool Ativo { get; set; }
     }
 }

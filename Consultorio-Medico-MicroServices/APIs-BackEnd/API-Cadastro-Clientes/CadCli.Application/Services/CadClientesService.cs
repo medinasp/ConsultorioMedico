@@ -1,6 +1,5 @@
 ﻿using CadCli.Application.InputModels;
 using CadCli.Application.ViewModels;
-using CadCli.Domain.Entities;
 using CadCli.Infra.Repositories;
 
 namespace CadCli.Application.Services
@@ -8,7 +7,7 @@ namespace CadCli.Application.Services
     public class CadClientesService : ICadClientesService
     {
         private readonly ICadClientesRepository _repository;
-        private static readonly List<CadCliente> _cadClientesList = new List<CadCliente>();
+        //private static readonly List<CadCliente> _cadClientesList = new List<CadCliente>();
 
         public CadClientesService(ICadClientesRepository repository)
         {
@@ -44,58 +43,6 @@ namespace CadCli.Application.Services
 
         //}
 
-        public async Task<IEnumerable<CadClientesViewModel>> GetActives()
-        {
-            var activeCadClientes = await _repository.GetActives();
-            var viewModels = activeCadClientes.Select(m => new CadClientesViewModel
-            {
-                Id = m.Id,
-                Nome = m.Nome,
-                CPF = m.CPF
-            });
-
-            return viewModels;
-        }
-
-
-        //public async Task<IEnumerable<CadClientesViewModel>> GetActives()
-        //{
-        //    var activeCadClientes = _cadClientesList.Where(m => m.Ativo);
-        //    var viewModels = activeCadClientes.Select(m => new CadClientesViewModel
-        //    {
-        //        Id = m.Id,
-        //        Nome = m.Nome,
-        //        CPF = m.CPF
-        //    });
-
-        //    return await Task.FromResult(viewModels);
-        //}
-
-        public async Task<IEnumerable<CadClientesViewModel>> GetAll()
-        {
-            var getAllCadClientes = await _repository.GetAll();
-            var viewModels = getAllCadClientes.Select(m => new CadClientesViewModel
-            {
-                Id = m.Id,
-                Nome = m.Nome,
-                CPF = m.CPF
-            });
-
-            return viewModels;
-        }
-
-        //public async Task<IEnumerable<CadClientesViewModel>> GetAll()
-        //{
-        //    var viewModels = _cadClientesList.Select(m => new CadClientesViewModel
-        //    {
-        //        Id = m.Id,
-        //        Nome = m.Nome,
-        //        CPF = m.CPF
-        //    });
-
-        //    return await Task.FromResult(viewModels);
-        //}
-
         public async Task<CadClientesViewModel> GetByCode(string code)
         {
             if (!Guid.TryParse(code, out var guid))
@@ -115,7 +62,6 @@ namespace CadCli.Application.Services
             return cadClientesViewModel;
         }
 
-
         //public async Task<CadClientesViewModel> GetByCode(string code)
         //{
         //    if (!Guid.TryParse(code, out var guid))
@@ -133,6 +79,119 @@ namespace CadCli.Application.Services
         //    };
 
         //    return await Task.FromResult(cadClientesViewModel);
+        //}
+
+        public async Task<IEnumerable<CadClientesViewModel>> GetAll()
+        {
+            var getAllCadClientes = await _repository.GetAll();
+            var viewModels = getAllCadClientes.Select(m => new CadClientesViewModel
+            {
+                Id = m.Id,
+                Nome = m.Nome,
+                CPF = m.CPF,
+                Ativo = m.Ativo
+            });
+
+            return viewModels;
+        }
+
+        //public async Task<IEnumerable<CadClientesViewModel>> GetAll()
+        //{
+        //    var viewModels = _cadClientesList.Select(m => new CadClientesViewModel
+        //    {
+        //        Id = m.Id,
+        //        Nome = m.Nome,
+        //        CPF = m.CPF
+        //    });
+
+        //    return await Task.FromResult(viewModels);
+        //}
+
+        public async Task<bool> Update(string id, CadClientesInputModel model)
+        {
+            if (!Guid.TryParse(id, out var guid))
+                return false;
+
+            var cadCliente = await _repository.GetByCode(guid.ToString());
+
+            if (cadCliente == null)
+                return false;
+
+            //cadCliente.Update(model.Nome, model.CPF);
+
+            await _repository.Update(cadCliente);
+
+            return true;
+        }
+
+        //public async Task<bool> Update(string id, CadClientesInputModel model)
+        //{
+        //    if (!Guid.TryParse(id, out var guid))
+        //        return false;
+
+        //    var cadClientes = _cadClientesList.FirstOrDefault(m => m.Id.ToString() == id);
+
+        //    if (cadClientes == null)
+        //        return false;
+
+        //    cadClientes.Update(model.Nome, model.CPF);
+        //    return true;
+        //}
+
+        public async Task<IEnumerable<CadClientesViewModel>> GetActives()
+        {
+            var activeCadClientes = await _repository.GetActives();
+            var viewModels = activeCadClientes.Select(m => new CadClientesViewModel
+            {
+                Id = m.Id,
+                Nome = m.Nome,
+                CPF = m.CPF,
+                Ativo = m.Ativo
+            });
+
+            return viewModels;
+        }
+
+        //public async Task<IEnumerable<CadClientesViewModel>> GetActives()
+        //{
+        //    var activeCadClientes = _cadClientesList.Where(m => m.Ativo);
+        //    var viewModels = activeCadClientes.Select(m => new CadClientesViewModel
+        //    {
+        //        Id = m.Id,
+        //        Nome = m.Nome,
+        //        CPF = m.CPF
+        //    });
+
+        //    return await Task.FromResult(viewModels);
+        //}
+
+        public async Task<bool> SoftDelete(string id)
+        {
+            if (!Guid.TryParse(id, out var guid))
+                return false;
+
+            var cadCliente = await _repository.GetByCode(guid.ToString());
+
+            if (cadCliente == null || !cadCliente.Ativo)
+                return false;
+
+            await _repository.SoftDelete(cadCliente);
+
+            return true;
+        }
+
+        //public async Task<bool> SoftDelete(string id)
+        //{
+        //    if (!Guid.TryParse(id, out var guid))
+        //        return false;
+
+        //    var cadClientes = _cadClientesList.FirstOrDefault(m => m.Id == guid && m.Ativo);
+        //    if (cadClientes == null)
+        //        return false;
+
+        //    cadClientes.Excluir();
+
+        //    return true;
         //}
 
         public async Task<bool> HardDelete(string id)
@@ -166,66 +225,5 @@ namespace CadCli.Application.Services
 
         //}
 
-        public async Task<bool> SoftDelete(string id)
-        {
-            if (!Guid.TryParse(id, out var guid))
-                return false;
-
-            var cadCliente = await _repository.GetByCode(guid.ToString());
-
-            if (cadCliente == null || !cadCliente.Ativo)
-                return false;
-
-            cadCliente.Excluir();
-
-            await _repository.Update(cadCliente);
-
-            return true;
-        }
-
-        //public async Task<bool> SoftDelete(string id)
-        //{
-        //    if (!Guid.TryParse(id, out var guid))
-        //        return false;
-
-        //    var cadClientes = _cadClientesList.FirstOrDefault(m => m.Id == guid && m.Ativo);
-        //    if (cadClientes == null)
-        //        return false;
-
-        //    cadClientes.Excluir();
-
-        //    return true;
-        //}
-
-        public async Task<bool> Update(string id, CadClientesInputModel model)
-        {
-            if (!Guid.TryParse(id, out var guid))
-                return false;
-
-            var cadCliente = await _repository.GetByCode(guid.ToString());
-
-            if (cadCliente == null)
-                return false;
-
-            cadCliente.Update(model.Nome, model.CPF);
-
-            await _repository.Update(cadCliente);
-
-            return true;
-        }
-
-        //public async Task<bool> Update(string id, CadClientesInputModel model)
-        //{
-        //    if (!Guid.TryParse(id, out var guid))
-        //        return false;
-
-        //    var cadClientes = _cadClientesList.FirstOrDefault(m => m.Id.ToString() == id);
-
-        //    if (cadClientes == null)
-        //        return false;
-
-        //    cadClientes.Update(model.Nome, model.CPF);
-        //    return true;
-        //}
     }
 }

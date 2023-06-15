@@ -14,8 +14,4 @@
     <ProjectReference Include="..\CadCli.Infra\CadCli.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="InterfacesServices\" />
-  </ItemGroup>
-
 </Project>
