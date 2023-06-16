@@ -4,6 +4,11 @@
     {
         public string Especialidade { get; private set; }
 
+        //o método abaixo é exigido somente para poder rodar as migrations com sucesso
+        public CadMedicos() : base("", "")
+        {
+        }
+
         public CadMedicos(string nome, string cpf, string especialidade) : base(nome, cpf)
         {
             Especialidade = especialidade;

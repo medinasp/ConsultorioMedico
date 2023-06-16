@@ -1,6 +1,6 @@
-﻿using CadFunc.Application.InterfacesServices;
-using CadFunc.Application.Services;
+﻿using CadFunc.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
+using CadFunc.Infra;
 
 namespace CadFunc.Application
 {
@@ -17,6 +17,7 @@ namespace CadFunc.Application
         private static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ICadMedicosService, CadMedicosService>();
+            services.AddInfrastructure();
 
             return services;
         }

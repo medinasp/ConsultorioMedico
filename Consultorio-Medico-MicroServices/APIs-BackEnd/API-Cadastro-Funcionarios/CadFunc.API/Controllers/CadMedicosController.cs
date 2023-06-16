@@ -1,5 +1,5 @@
 ﻿using CadFunc.Application.InputModels;
-using CadFunc.Application.InterfacesServices;
+using CadFunc.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadFunc.API.Controllers
@@ -60,7 +60,7 @@ namespace CadFunc.API.Controllers
         }
 
         /// <summary>
-        /// Obter todos cadastros de médicos em memória
+        /// Obter todos cadastros de médicos
         /// </summary>
         /// <returns>Médicos Cadastrados</returns>
         /// <response code="200">Sucesso</response>
@@ -98,6 +98,19 @@ namespace CadFunc.API.Controllers
         }
 
         /// <summary>
+        /// Obter somente cadastros de médicos com status "ativo"
+        /// </summary>
+        /// <returns>Médicos Cadastrados</returns>
+        /// <response code="200">Sucesso</response>
+        [HttpGet("actives")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetActives()
+        {
+            var activeCadMedicos = await _cadMedicosServices.GetActives();
+            return Ok(activeCadMedicos);
+        }
+
+        /// <summary>
         /// Soft Delete - Desativa registro
         /// </summary>
         /// <param name="id">Identificador do cadastro de um médico específico</param>
@@ -117,20 +130,7 @@ namespace CadFunc.API.Controllers
         }
 
         /// <summary>
-        /// Obter somente cadastros de médicos com status "ativo"
-        /// </summary>
-        /// <returns>Médicos Cadastrados</returns>
-        /// <response code="200">Sucesso</response>
-        [HttpGet("actives")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetActives()
-        {
-            var activeCadMedicos = await _cadMedicosServices.GetActives();
-            return Ok(activeCadMedicos);
-        }
-
-        /// <summary>
-        /// Hard Delete - Remove um cadastro do banco em memória
+        /// Hard Delete - Remove um cadastro do banco
         /// </summary>
         /// <param name="id">Identificador do cadastro de um médico específico</param>
         /// <returns>Nada</returns>

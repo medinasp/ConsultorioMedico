@@ -1,27 +1,32 @@
 ﻿using CadFunc.Application.InputModels;
-using CadFunc.Application.InterfacesServices;
 using CadFunc.Application.ViewModels;
-using CadFunc.Domain.Entities;
+using CadFunc.Infra.Repositories;
 
 namespace CadFunc.Application.Services
 {
     public class CadMedicosService : ICadMedicosService
     {
-        private static readonly List<CadMedicos> _cadMedicosList = new List<CadMedicos>();
+        private readonly ICadMedicosRepository _repository;
+        //private static readonly List<CadMedico> _cadMedicosList = new List<CadMedico>();
+
+        public CadMedicosService(ICadMedicosRepository repository)
+        {
+            _repository = repository;
+        }
 
         public async Task<CadMedicosViewModel> Add(CadMedicosInputModel model)
         {
-            var cadMedicos = model.ToEntity();
-            _cadMedicosList.Add(cadMedicos);
+            var cadMedico = model.ToEntity();
+            await _repository.Add(cadMedico);
 
             var viewModel = new CadMedicosViewModel
             {
-                Id = cadMedicos.Id,
-                Nome = cadMedicos.Nome,
-                CPF = cadMedicos.CPF,
-                Especialidade = cadMedicos.Especialidade
+                Id = cadMedico.Id,
+                Nome = cadMedico.Nome,
+                CPF = cadMedico.CPF,
+                Especialidade = cadMedico.Especialidade
             };
-            return await Task.FromResult(viewModel);
+            return viewModel;
         }
 
         public async Task<CadMedicosViewModel> GetByCode(string code)
@@ -29,7 +34,7 @@ namespace CadFunc.Application.Services
             if (!Guid.TryParse(code, out var guid))
                 return null;
 
-            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id == guid);
+            var cadMedicos = await _repository.GetByCode(guid.ToString());
             if (cadMedicos == null)
                 return null;
 
@@ -41,32 +46,55 @@ namespace CadFunc.Application.Services
                 Especialidade = cadMedicos.Especialidade,
             };
 
-            return await Task.FromResult(cadMedicosViewModel);
+            return cadMedicosViewModel;
         }
 
         public async Task<IEnumerable<CadMedicosViewModel>> GetAll()
         {
-            var viewModels = _cadMedicosList.Select(m => new CadMedicosViewModel
+            var getAllCadMedicos = await _repository.GetAll();
+
+            var viewModels = getAllCadMedicos.Select(m => new CadMedicosViewModel
             {
                 Id = m.Id,
                 Nome = m.Nome,
                 CPF = m.CPF,
                 Especialidade = m.Especialidade,
-            });
+                Ativo = m.Ativo
+    });
 
-            return await Task.FromResult(viewModels);
+            return viewModels;
         }
 
         public async Task<bool> Update(string id, CadMedicosInputModel model)
         {
-            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id.ToString() == id);
-
-            if (cadMedicos == null)
+            if (!Guid.TryParse(id, out var guid))
                 return false;
 
-            cadMedicos.Update(model.Nome, model.CPF, model.Especialidade);
+            var cadMedico = await _repository.GetByCode(guid.ToString());
+            
+            if (cadMedico == null)
+                return false;
+
+            cadMedico.Update(model.Nome, model.CPF, model.Especialidade);
+
+            await _repository.Update(cadMedico);
 
             return true;
+        }
+
+        public async Task<IEnumerable<CadMedicosViewModel>> GetActives()
+        {
+            var activeCadMedicos = await _repository.GetActives();
+            var viewModels = activeCadMedicos.Select(m => new CadMedicosViewModel
+            {
+                Id = m.Id,
+                Nome = m.Nome,
+                CPF = m.CPF,
+                Especialidade = m.Especialidade,
+                Ativo = m.Ativo
+            });
+
+            return viewModels;
         }
 
         public async Task<bool> SoftDelete(string id)
@@ -74,37 +102,27 @@ namespace CadFunc.Application.Services
             if (!Guid.TryParse(id, out var guid))
                 return false;
 
-            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id == guid && m.Ativo);
-            if (cadMedicos == null)
+            var cadMedico = await _repository.GetByCode(guid.ToString());
+
+            if (cadMedico == null || !cadMedico.Ativo)
                 return false;
 
-            cadMedicos.Excluir();
+            await _repository.SoftDelete(cadMedico);
 
             return true;
         }
 
-        public async Task<IEnumerable<CadMedicosViewModel>> GetActives()
-        {
-            var activeCadMedicos = _cadMedicosList.Where(m => m.Ativo);
-            var viewModels = activeCadMedicos.Select(m => new CadMedicosViewModel
-            {
-                Id = m.Id,
-                Nome = m.Nome,
-                CPF = m.CPF,
-                Especialidade = m.Especialidade
-            });
-
-            return await Task.FromResult(viewModels);
-        }
-
         public async Task<bool> HardDelete(string id)
         {
-            var cadMedicos = _cadMedicosList.FirstOrDefault(m => m.Id.ToString() == id);
+            if (!Guid.TryParse(id, out var guid))
+                return false;
+
+            var cadMedicos = await _repository.GetByCode(guid.ToString());
 
             if (cadMedicos == null)
                 return false;
 
-            _cadMedicosList.Remove(cadMedicos);
+            await _repository.HardDelete(cadMedicos);
 
             return true;
         }

@@ -1,8 +1,7 @@
 ﻿using CadFunc.Application.InputModels;
 using CadFunc.Application.ViewModels;
-using CadFunc.Domain.Entities;
 
-namespace CadFunc.Application.InterfacesServices
+namespace CadFunc.Application.Services
 {
     public interface ICadMedicosService
     {
@@ -10,8 +9,8 @@ namespace CadFunc.Application.InterfacesServices
         Task<CadMedicosViewModel> GetByCode(string code);
         Task<IEnumerable<CadMedicosViewModel>> GetAll();
         Task<bool> Update(string id, CadMedicosInputModel model);
-        Task<bool> SoftDelete(string id);
         Task<IEnumerable<CadMedicosViewModel>> GetActives();
+        Task<bool> SoftDelete(string id);
         Task<bool> HardDelete(string id);
     }
 }

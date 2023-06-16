@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CadFunc.Domain\CadFunc.Domain.csproj" />
+    <ProjectReference Include="..\CadFunc.Infra.cs\CadFunc.Infra.csproj" />
   </ItemGroup>
 
 </Project>
