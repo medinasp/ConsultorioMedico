@@ -9,7 +9,7 @@ namespace CadCli.Infra.Configuration
         {
         }
 
-        public DbSet<CadCliente> CadClientes { get; set; }
+        public DbSet<CadClientes> CadClientes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
