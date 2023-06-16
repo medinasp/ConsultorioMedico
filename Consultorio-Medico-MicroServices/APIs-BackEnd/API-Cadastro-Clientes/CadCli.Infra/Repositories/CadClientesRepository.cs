@@ -14,13 +14,13 @@ namespace CadCli.Infra.Repositories
             _context = context;
         }
 
-        public async Task Add(CadCliente cadCliente)
+        public async Task Add(CadClientes cadCliente)
         {
             await _context.CadClientes.AddAsync(cadCliente);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<CadCliente> GetByCode(string code)
+        public async Task<CadClientes> GetByCode(string code)
         {
             if (!Guid.TryParse(code, out var guid))
                 return null;
@@ -30,23 +30,23 @@ namespace CadCli.Infra.Repositories
             return cadCliente;
         }
 
-        public async Task<IEnumerable<CadCliente>> GetAll()
+        public async Task<IEnumerable<CadClientes>> GetAll()
         {
             return await _context.CadClientes.ToListAsync();
         }
 
-        public async Task Update(CadCliente cadCliente)
+        public async Task Update(CadClientes cadCliente)
         {
             _context.CadClientes.Update(cadCliente);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CadCliente>> GetActives()
+        public async Task<IEnumerable<CadClientes>> GetActives()
         {
             return await _context.CadClientes.Where(c => c.Ativo).ToListAsync();
         }
 
-        public async Task<bool> SoftDelete(CadCliente cadCliente)
+        public async Task<bool> SoftDelete(CadClientes cadCliente)
         {
             if (cadCliente == null)
                 throw new ArgumentNullException(nameof(cadCliente));
@@ -59,7 +59,7 @@ namespace CadCli.Infra.Repositories
             return true;
         }
 
-        public async Task HardDelete(CadCliente cadCliente)
+        public async Task HardDelete(CadClientes cadCliente)
         {
             _context.CadClientes.Remove(cadCliente);
             await _context.SaveChangesAsync();

@@ -4,12 +4,12 @@ namespace CadCli.Infra.Repositories
 {
     public interface ICadClientesRepository
     {
-        Task Add(CadCliente cadCliente);
-        Task<CadCliente> GetByCode(string code);
-        Task<IEnumerable<CadCliente>> GetAll();
-        Task Update(CadCliente cadCliente);
-        Task<IEnumerable<CadCliente>> GetActives();
-        Task<bool> SoftDelete(CadCliente cadCliente);
-        Task HardDelete(CadCliente cadCliente);
+        Task Add(CadClientes cadCliente);
+        Task<CadClientes> GetByCode(string code);
+        Task<IEnumerable<CadClientes>> GetAll();
+        Task Update(CadClientes cadCliente);
+        Task<IEnumerable<CadClientes>> GetActives();
+        Task<bool> SoftDelete(CadClientes cadCliente);
+        Task HardDelete(CadClientes cadCliente);
     }
 }
