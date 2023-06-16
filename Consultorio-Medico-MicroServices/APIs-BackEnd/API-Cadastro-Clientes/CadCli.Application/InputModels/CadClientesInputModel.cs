@@ -7,7 +7,7 @@ namespace CadCli.Application.InputModels
         public string Nome { get; set; }
         public string CPF { get; set; }
 
-        public CadCliente ToEntity()
+        public CadClientes ToEntity()
             => new(Nome, CPF);
 
     }
