@@ -24,7 +24,9 @@ namespace CadFunc.Application.Services
                 Id = cadMedico.Id,
                 Nome = cadMedico.Nome,
                 CPF = cadMedico.CPF,
-                Especialidade = cadMedico.Especialidade
+                Especialidade = cadMedico.Especialidade,
+                DataCriacao = cadMedico.DataCriacao,
+                Ativo = cadMedico.Ativo
             };
             return viewModel;
         }
