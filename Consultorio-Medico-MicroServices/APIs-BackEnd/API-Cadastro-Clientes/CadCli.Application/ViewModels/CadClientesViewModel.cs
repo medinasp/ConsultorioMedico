@@ -15,5 +15,7 @@ namespace CadCli.Application.ViewModels
         public string CPF { get; set; }
 
         public bool Ativo { get; set; }
+
+        public DateTime DataCriacao { get; set; }
     }
 }
