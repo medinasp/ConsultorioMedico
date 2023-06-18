@@ -23,7 +23,9 @@ namespace CadCli.Application.Services
             {
                 Id = cadCliente.Id,
                 Nome = cadCliente.Nome,
-                CPF = cadCliente.CPF
+                CPF = cadCliente.CPF,
+                DataCriacao = cadCliente.DataCriacao,
+                Ativo = cadCliente.Ativo
             };
             return viewModel;
         }
