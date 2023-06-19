@@ -34,6 +34,18 @@ namespace Prontuarios.API.Controllers
             return Ok(prontuarioViewModel);
         }
 
+        [HttpPost("criar-prontuario2")]
+        public async Task<IActionResult> CriarProntuario2([FromBody] ProntuariosInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _prontuariosService.CriarProntuario2(model);
+
+            return Ok("Sucesso");
+        }
         // Outros métodos do controller...
 
     }
