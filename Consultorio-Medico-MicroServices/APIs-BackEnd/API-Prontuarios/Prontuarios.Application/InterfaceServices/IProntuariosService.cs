@@ -11,7 +11,8 @@ namespace Prontuarios.Application.InterfaceServices
     public interface IProntuariosService
     {
         Task<ProntuariosViewModel> CriarProntuarioPorId(ProntuariosInputModel model);
-        Task<ProntuariosViewModel> CriarProntuarioPorNome(ProntuariosInputModel model);
+        Task CriarProntuario2(ProntuariosInputModel model);
+        //Task<ProntuariosViewModel> CriarProntuarioPorNome(ProntuariosInputModel model);
         //Task<ProntuariosViewModel> ConsultarProntuarioPorNomeMedico(string nomeMedico);
         //Task<ProntuariosViewModel> ConsultarProntuarioPorNomeMedicoAtivos(string nomeMedico);
         //Task<ProntuariosViewModel> ConsultarProntuarioPorNomePaciente(string nomePaciente);
