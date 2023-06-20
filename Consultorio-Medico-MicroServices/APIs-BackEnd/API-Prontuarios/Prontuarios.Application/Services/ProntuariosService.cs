@@ -1,4 +1,5 @@
-﻿using Prontuarios.Application.InputModels;
+﻿using Newtonsoft.Json;
+using Prontuarios.Application.InputModels;
 using Prontuarios.Application.InterfaceServices;
 using Prontuarios.Application.ViewModels;
 using Prontuarios.Domain.Entities;
@@ -28,7 +29,9 @@ namespace Prontuarios.Application.Services
             }
 
             var medicoContent = await medicoResponse.Content.ReadAsStringAsync();
-            var medicoId = medicoContent; // Armazena o ID do médico como string
+
+            var deserealizadoMedico = JsonConvert.DeserializeObject<CadMedicosInputModel>(medicoContent);
+            var medicoId = deserealizadoMedico.Id; ; // Armazena o ID do médico como string
 
             // Obter dados do paciente da API externa
             var pacienteResponse = await _httpClient.GetAsync($"https://localhost:7099/api/CadClientes/{model.PacienteId}");
@@ -39,7 +42,8 @@ namespace Prontuarios.Application.Services
             }
 
             var pacienteContent = await pacienteResponse.Content.ReadAsStringAsync();
-            var pacienteId = pacienteContent; // Armazena o ID do paciente como string
+            var deserealizadoPaciente = JsonConvert.DeserializeObject<CadPacientesInputModel>(pacienteContent);
+            var pacienteId = deserealizadoMedico.Id; ; // Armazena o ID do paciente como string
 
             // Criar o prontuário com os dados obtidos
             var prontuario = new Prontuario(medicoId, pacienteId, model.TextoProntuario);
