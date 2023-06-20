@@ -1,21 +1,19 @@
-﻿using Prontuarios.Domain.Entities.External;
-
-namespace Prontuarios.Domain.Entities
+﻿namespace Prontuarios.Domain.Entities
 {
     public class Prontuario : EntityBase
     {
-        public string TextoProntuario { get; private set; }
-        public CadMedicos? Medico { get; private set; }
-        public CadClientes? Cliente { get; private set; }
+        public string MedicoId { get; set; }
+        public string PacienteId { get; set; }
+        public string TextoProntuario { get; set; }
 
-
-        public Prontuario()
-        {}
-
-        public Prontuario(CadMedicos medico, CadClientes cliente, string textoProntuario)
+        private Prontuario()
         {
-            Medico = medico;
-            Cliente = cliente;
+        }
+
+         public Prontuario(string medicoId, string pacienteId, string textoProntuario)
+        {
+            MedicoId = medicoId;
+            PacienteId = pacienteId;
             TextoProntuario = textoProntuario;
         }
 
