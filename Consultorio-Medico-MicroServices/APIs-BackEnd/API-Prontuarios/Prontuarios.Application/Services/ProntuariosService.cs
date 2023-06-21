@@ -18,46 +18,93 @@ namespace Prontuarios.Application.Services
             _prontuariosRepository = prontuariosRepository;
         }
 
-        public async Task CriarProntuario2(ProntuariosInputModel model)
+        public async Task CriarProntuarioPorId(ProntuariosInputModel model)
         {
             // Obter dados do médico da API externa
             var medicoResponse = await _httpClient.GetAsync($"https://localhost:7176/api/CadMedicos/{model.MedicoId}");
             if (!medicoResponse.IsSuccessStatusCode)
             {
-                // Tratar erro ao obter os dados do médico
-                return;
+                throw new Exception("Erro ao obter os dados do médico");
             }
 
             var medicoContent = await medicoResponse.Content.ReadAsStringAsync();
-
-            var deserealizadoMedico = JsonConvert.DeserializeObject<CadMedicosInputModel>(medicoContent);
-            var medicoId = deserealizadoMedico.Id; ; // Armazena o ID do médico como string
+            var deserealizadoMedico = JsonConvert.DeserializeObject<ExternalApiInputModel>(medicoContent);
 
             // Obter dados do paciente da API externa
             var pacienteResponse = await _httpClient.GetAsync($"https://localhost:7099/api/CadClientes/{model.PacienteId}");
             if (!pacienteResponse.IsSuccessStatusCode)
             {
-                // Tratar erro ao obter os dados do paciente
-                return;
+                throw new Exception("Erro ao obter os dados do paciente");
             }
 
             var pacienteContent = await pacienteResponse.Content.ReadAsStringAsync();
-            var deserealizadoPaciente = JsonConvert.DeserializeObject<CadPacientesInputModel>(pacienteContent);
-            var pacienteId = deserealizadoMedico.Id; ; // Armazena o ID do paciente como string
+            var deserealizadoPaciente = JsonConvert.DeserializeObject<ExternalApiInputModel>(pacienteContent);
 
-            // Criar o prontuário com os dados obtidos
-            var prontuario = new Prontuario(medicoId, pacienteId, model.TextoProntuario);
+            var prontuario = new Prontuario(deserealizadoMedico.Id, deserealizadoMedico.nome, deserealizadoMedico.especialidade, deserealizadoPaciente.Id, deserealizadoPaciente.nome, model.TextoProntuario);
 
             // Persistir o prontuário no banco de dados
-            _prontuariosRepository.Add(prontuario);
+            await _prontuariosRepository.Add(prontuario);
         }
 
-
-
-        public Task<ProntuariosViewModel> CriarProntuarioPorId(ProntuariosInputModel model)
+        public async Task CriarProntuarioPorNome(ProntuariosInputModel model)
         {
-            throw new NotImplementedException();
+            // Obter dados do médico da API externa
+            var medicoResponse = await _httpClient.GetAsync($"https://localhost:7176/api/CadMedicos/{model.MedicoNome}");
+            if (!medicoResponse.IsSuccessStatusCode)
+            {
+                throw new Exception("Erro ao obter os dados do médico");
+            }
+
+            var medicoContent = await medicoResponse.Content.ReadAsStringAsync();
+            var deserealizadoMedico = JsonConvert.DeserializeObject<ExternalApiInputModel>(medicoContent);
+
+            // Obter dados do paciente da API externa
+            var pacienteResponse = await _httpClient.GetAsync($"https://localhost:7099/api/CadClientes/{model.PacienteNome}");
+            if (!pacienteResponse.IsSuccessStatusCode)
+            {
+                throw new Exception("Erro ao obter os dados do paciente");
+            }
+
+            var pacienteContent = await pacienteResponse.Content.ReadAsStringAsync();
+            var deserealizadoPaciente = JsonConvert.DeserializeObject<ExternalApiInputModel>(pacienteContent);
+
+            var prontuario = new Prontuario(deserealizadoMedico.Id, deserealizadoMedico.nome, deserealizadoMedico.especialidade, deserealizadoPaciente.Id, deserealizadoPaciente.nome, model.TextoProntuario);
+
+            // Persistir o prontuário no banco de dados
+            await _prontuariosRepository.Add(prontuario);
         }
+
+        //public async Task CriarProntuarioPorNome(ProntuariosInputModel model)
+        //{
+        //    // Obter dados do médico da API externa
+        //    var medicoResponse = await _httpClient.GetAsync($"https://localhost:7176/api/CadMedicos/{model.MedicoId}");
+        //    if (!medicoResponse.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception("Erro ao obter os dados do médico");
+        //    }
+
+        //    var medicoContent = await medicoResponse.Content.ReadAsStringAsync();
+        //    var deserealizadoMedico = JsonConvert.DeserializeObject<ExternalApiInputModel>(medicoContent);
+        //    var medicoId = deserealizadoMedico.Id; // Armazena o ID do médico como string
+
+        //    // Obter dados do paciente da API externa
+        //    var pacienteResponse = await _httpClient.GetAsync($"https://localhost:7099/api/CadClientes/{model.PacienteId}");
+        //    if (!pacienteResponse.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception("Erro ao obter os dados do paciente");
+        //    }
+
+        //    var pacienteContent = await pacienteResponse.Content.ReadAsStringAsync();
+        //    var deserealizadoPaciente = JsonConvert.DeserializeObject<ExternalApiInputModel>(pacienteContent);
+        //    var pacienteId = deserealizadoPaciente.Id; // Armazena o ID do paciente como string
+
+        //    // Criar o prontuário com os dados obtidos
+        //    var prontuario = new Prontuario(medicoId, medicoNome, medicoEspecialidade, pacienteId, pacienteNome, model.TextoProntuario);
+
+        //    // Persistir o prontuário no banco de dados
+        //    _prontuariosRepository.Add(prontuario);
+        //}
+
 
         //public async Task CriarProntuario(ProntuariosInputModel model)
         //{
