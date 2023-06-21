@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Prontuarios.Application.InputModels
 {
-    public class CadMedicosInputModel
+    public class ExternalApiInputModel
     {
         public string Id { get; set; }
         public string nome { get; set; }

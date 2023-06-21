@@ -16,38 +16,43 @@ namespace Prontuarios.API.Controllers
             _prontuariosService = prontuariosService;
         }
 
-        [HttpPost("criar-prontuario")]
-        public async Task<IActionResult> CriarProntuario([FromBody] ProntuariosInputModel model)
+        [HttpPost("criar-prontuario-por-id")]
+        public async Task<IActionResult> CriarProntuarioId([FromBody] ProntuariosInputModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var prontuarioViewModel = await _prontuariosService.CriarProntuarioPorId(model);
-
-            if (prontuarioViewModel == null)
+            try
             {
-                return NotFound();
+                await _prontuariosService.CriarProntuarioPorId(model);
+                return Ok("Sucesso");
             }
-
-            return Ok(prontuarioViewModel);
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Erro ao criar o prontuário: " + ex.Message);
+            }
         }
 
-        [HttpPost("criar-prontuario2")]
-        public async Task<IActionResult> CriarProntuario2([FromBody] ProntuariosInputModel model)
+        [HttpPost("criar-prontuario-por-nome")]
+        public async Task<IActionResult> CriarProntuarioNome([FromBody] ProntuariosInputModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _prontuariosService.CriarProntuario2(model);
-
-            return Ok("Sucesso");
+            try
+            {
+                await _prontuariosService.CriarProntuarioPorNome(model);
+                return Ok("Sucesso");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Erro ao criar o prontuário: " + ex.Message);
+            }
         }
-        // Outros métodos do controller...
-
     }
 }
 
