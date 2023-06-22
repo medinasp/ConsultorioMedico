@@ -29,6 +29,16 @@ namespace CadFunc.Infra.Repositories
             return cadMedico;
         }
 
+        public async Task<List<CadMedicos>> GetByName(string name)
+        {
+            //var cadMedico = await _context.CadMedicos.FirstOrDefaultAsync(c => c.Nome == name);
+            //var cadMedico = await _context.CadMedicos.FirstOrDefaultAsync(c => EF.Functions.Like(c.Nome, $"%{name}%"));
+            var cadMedico = await _context.CadMedicos.Where(c => EF.Functions.Like(c.Nome, $"%{name}%")).ToListAsync();
+
+
+            return cadMedico;
+        }
+
         public async Task<IEnumerable<CadMedicos>> GetAll()
         {
             return await _context.CadMedicos.ToListAsync();
@@ -63,6 +73,5 @@ namespace CadFunc.Infra.Repositories
             _context.CadMedicos.Remove(cadMedico);
             await _context.SaveChangesAsync();
         }
-
     }
 }

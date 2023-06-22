@@ -6,6 +6,7 @@ namespace CadFunc.Infra.Repositories
     {
         Task Add(CadMedicos cadMedico);
         Task<CadMedicos> GetByCode(string code);
+        Task<List<CadMedicos>> GetByName(string name);
         Task<IEnumerable<CadMedicos>> GetAll();
         Task Update(CadMedicos cadMedico);
         Task<IEnumerable<CadMedicos>> GetActives();
