@@ -51,6 +51,24 @@ namespace CadFunc.Application.Services
             return cadMedicosViewModel;
         }
 
+        public async Task<List<CadMedicosViewModel>> GetByName(string name)
+        {
+            var cadMedicosList = await _repository.GetByName(name);
+            if (cadMedicosList == null)
+                return null;
+
+            var cadMedicosViewModelList = cadMedicosList.Select(c => new CadMedicosViewModel
+            {
+                Id = c.Id,
+                Nome = c.Nome,
+                CPF = c.CPF,
+                Especialidade = c.Especialidade
+            }).ToList();
+
+            return cadMedicosViewModelList;
+        }
+
+
         public async Task<IEnumerable<CadMedicosViewModel>> GetAll()
         {
             var getAllCadMedicos = await _repository.GetAll();
@@ -128,6 +146,5 @@ namespace CadFunc.Application.Services
 
             return true;
         }
-
     }
 }
