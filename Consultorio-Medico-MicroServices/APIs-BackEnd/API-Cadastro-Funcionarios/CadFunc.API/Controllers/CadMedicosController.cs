@@ -60,6 +60,26 @@ namespace CadFunc.API.Controllers
         }
 
         /// <summary>
+        /// Obter um cadastro específico pelo nome
+        /// </summary>
+        /// <param name="nome">Identificador do cadastro de um médico específico</param>
+        /// <returns>Dados do cadastro específico do médico</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
+        [HttpGet("nome/{nome}", Name = "GetByName")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetByName(string nome)
+        {
+            var cadMedicosViewModel = await _cadMedicosServices.GetByName(nome);
+
+            if (cadMedicosViewModel == null)
+                return NotFound();
+
+            return Ok(cadMedicosViewModel);
+        }
+
+        /// <summary>
         /// Obter todos cadastros de médicos
         /// </summary>
         /// <returns>Médicos Cadastrados</returns>
