@@ -1,5 +1,5 @@
-﻿using Prontuarios.Infra.Repositories;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Prontuarios.Infra.Repositories;
 
 namespace Prontuarios.Infra
 {
