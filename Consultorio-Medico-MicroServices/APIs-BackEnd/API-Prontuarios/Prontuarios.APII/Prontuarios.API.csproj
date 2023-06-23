@@ -4,6 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <NoWarn>$(NoWarn);1591</NoWarn>
+	<UserSecretsId>aspnet-Prontuarios.API-9f2523b6-43ba-4b6b-ac28-ec071a7c8368</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
