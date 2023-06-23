@@ -1,6 +1,4 @@
-﻿using Prontuarios.Domain.Entities;
-
-namespace Prontuarios.Application.InputModels
+﻿namespace Prontuarios.Application.InputModels
 {
     public class ProntuariosInputModel
     {

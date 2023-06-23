@@ -2,7 +2,6 @@
 using Prontuarios.Application.InterfaceServices;
 using Prontuarios.Application.Services;
 using Prontuarios.Infra;
-using System;
 
 namespace Prontuarios.Application
 {
