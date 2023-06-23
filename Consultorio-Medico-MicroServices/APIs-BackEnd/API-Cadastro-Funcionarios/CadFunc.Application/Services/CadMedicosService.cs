@@ -80,7 +80,7 @@ namespace CadFunc.Application.Services
                 CPF = m.CPF,
                 Especialidade = m.Especialidade,
                 Ativo = m.Ativo
-    });
+            });
 
             return viewModels;
         }
