@@ -32,10 +32,5 @@
         {
             TextoProntuario = textoProntuario;
         }
-
-        public bool ProntuarioExists(string medicoId, string pacienteId)
-        {
-            return MedicoId == medicoId && PacienteId == pacienteId;
-        }
     }
 }
