@@ -30,18 +30,20 @@ namespace Prontuarios.Infra.Repositories
 
         public async Task<List<Prontuario>> Add(Prontuario prontuario)
         {
+            //controle para evitar repetições de prontuários entre mesmos médicos e pacientes respectivos
+            var registroExistente = _context.Prontuarios.Any(p => p.MedicoId == prontuario.MedicoId && p.PacienteId == prontuario.PacienteId);
+
+            if (registroExistente)
+            {
+                throw new ArgumentException("Essa combinação de Médico e Paciente já possui um prontuário.");
+            }
+
             await _context.Prontuarios.AddAsync(prontuario);
             await _context.SaveChangesAsync();
 
             var cadProntuario = _context.Prontuarios.Where(c => c.MedicoNome == prontuario.MedicoNome).ToList();
 
             return cadProntuario;
-        }
-
-        private bool ProntuarioExists(string medicoId, string pacienteId)
-        {
-            //return _context.Prontuarios.Any(p => p.ProntuarioExists(medicoId, pacienteId));
-            return _context.Prontuarios.Any(p => p.MedicoId == medicoId && p.PacienteId == pacienteId);
         }
 
         public async Task Update(Prontuario prontuario)
